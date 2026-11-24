@@ -1,0 +1,409 @@
+:root {
+    --bg-body: #f1f5f9;
+    --bg-card: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border-light: #e2e8f0;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+
+    /* Cores de Status */
+    --status-pendente: #f59e0b;
+    --status-andamento: #3b82f6;
+    --status-concluida: #10b981;
+    --status-vencida: #ef4444;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    min-height: 100vh;
+}
+
+/* TOPBAR */
+.topbar {
+    background-color: var(--bg-card);
+    border-bottom: 1px solid var(--border-light);
+    padding: 15px 30px;
+    margin-bottom: 25px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+}
+
+.topbar-content {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    font-size: 1.8rem;
+    color: var(--primary);
+}
+
+.topbar h1 {
+    font-size: 1.35rem;
+    font-weight: 700;
+}
+
+/* LAYOUT DASHBOARD (2 COLUNAS) */
+.dashboard-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 25px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .dashboard-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.sidebar-forms {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: sticky;
+    top: 20px;
+}
+
+/* PAINÉIS E FORMULÁRIOS */
+.card-panel {
+    background: var(--bg-card);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-light);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.card-panel h2 {
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-main);
+}
+
+.card-panel.modo-edicao {
+    border: 2px solid var(--status-pendente);
+    background-color: #fffbeb;
+}
+
+.inline-form {
+    display: flex;
+    gap: 8px;
+}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-muted);
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background-color: #fff;
+    color: var(--text-main);
+    transition: border-color 0.2s;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 75px;
+}
+
+/* BOTÕES GERAIS */
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+    padding: 10px 16px;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-secondary {
+    background-color: #e2e8f0;
+    color: var(--text-main);
+    padding: 10px 16px;
+}
+
+.btn-secondary:hover {
+    background-color: #cbd5e1;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.form-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* BARRA DE FILTROS E ORDENAÇÃO */
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 15px 20px;
+}
+
+.filtros-grupo, .ordenacao-grupo {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.select-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.select-wrapper i {
+    position: absolute;
+    left: 12px;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+.select-wrapper select {
+    padding-left: 34px;
+    min-width: 185px;
+}
+
+/* GRADE DE CARDS */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 18px;
+}
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 50px 20px;
+    background: var(--bg-card);
+    border-radius: 12px;
+    color: var(--text-muted);
+    border: 1px dashed var(--border-light);
+}
+
+/* CARD INDIVIDUAL DA TAREFA */
+.tarefa-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 18px;
+    border: 1px solid var(--border-light);
+    border-left: 6px solid var(--status-pendente); /* Borda padrão */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tarefa-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+}
+
+/* Cores das Bordas por Status */
+.tarefa-card.status-pendente {
+    border-left-color: var(--status-pendente);
+}
+
+.tarefa-card.status-em_andamento {
+    border-left-color: var(--status-andamento);
+}
+
+.tarefa-card.status-concluida {
+    border-left-color: var(--status-concluida);
+    opacity: 0.85;
+}
+
+.tarefa-card.status-vencida {
+    border-left-color: var(--status-vencida);
+}
+
+/* Cabeçalho do Card (Tags + Botões discretos) */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.badge-categoria {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background-color: #f1f5f9;
+    color: var(--text-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.acoes-secundarias {
+    display: flex;
+    gap: 4px;
+}
+
+.btn-icon {
+    background: transparent;
+    color: var(--text-muted);
+    padding: 6px;
+    border-radius: 6px;
+    font-size: 1.05rem;
+}
+
+.btn-icon:hover {
+    background-color: #f1f5f9;
+    color: var(--text-main);
+}
+
+.btn-icon.delete:hover {
+    background-color: #fee2e2;
+    color: var(--status-vencida);
+}
+
+/* Corpo do Card */
+.card-body {
+    margin-bottom: 16px;
+}
+
+.card-titulo {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--text-main);
+}
+
+.tarefa-card.status-concluida .card-titulo {
+    text-decoration: line-through;
+    color: var(--text-muted);
+}
+
+.card-descricao {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    margin-bottom: 14px;
+}
+
+.card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    padding-top: 10px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.texto-vencido {
+    color: var(--status-vencida);
+    font-weight: 700;
+}
+
+/* Rodapé do Card (Botões Principais de Destaque) */
+.card-footer-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-status {
+    flex: 1;
+    padding: 8px 10px;
+    font-size: 0.82rem;
+    border-radius: 8px;
+}
+
+.btn-andamento {
+    background-color: #eff6ff;
+    color: var(--status-andamento);
+    border: 1px solid #bfdbfe;
+}
+
+.btn-andamento:hover {
+    background-color: var(--status-andamento);
+    color: #fff;
+}
+
+.btn-concluir {
+    background-color: #ecfdf5;
+    color: var(--status-concluida);
+    border: 1px solid #a7f3d0;
+}
+
+.btn-concluir:hover {
+    background-color: var(--status-concluida);
+    color: #fff;
+}

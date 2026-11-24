@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Tarefas</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Ícones (Phosphor Icons) para deixar os cards mais agradáveis -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+    <header class="topbar">
+        <div class="topbar-content">
+            <i class="ph-fill ph-check-square-offset logo-icon"></i>
+            <h1>Gerenciador de Tarefas</h1>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        
+        <!-- COLUNA ESQUERDA: CRIAÇÃO E EDIÇÃO -->
+        <aside class="sidebar-forms">
+            
+            <!-- BLOCO 1: CADASTRO DE CATEGORIAS -->
+            <section class="card-panel">
+                <h2><i class="ph ph-folder-plus"></i> Nova Categoria</h2>
+                <form id="form-categoria" class="inline-form">
+                    <input type="text" id="cat-nome" placeholder="Ex: Trabalho, Estudos..." required>
+                    <button type="submit" class="btn-primary" title="Adicionar Categoria">
+                        <i class="ph ph-plus"></i>
+                    </button>
+                </form>
+            </section>
+
+            <!-- BLOCO 2: FORMULÁRIO (CRIAR / EDITAR TAREFA) -->
+            <section class="card-panel" id="painel-form-tarefa">
+                <h2 id="form-tarefa-titulo"><i class="ph ph-note-pencil"></i> Nova Tarefa</h2>
+                <form id="form-tarefa">
+                    <input type="hidden" id="tarefa-id">
+                    
+                    <div class="form-group">
+                        <label for="tarefa-titulo">Título da Tarefa</label>
+                        <input type="text" id="tarefa-titulo" placeholder="O que precisa ser feito?" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tarefa-descricao">Descrição (opcional)</label>
+                        <textarea id="tarefa-descricao" placeholder="Detalhes adicionais..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tarefa-categoria">Categoria</label>
+                        <select id="tarefa-categoria" required>
+                            <option value="">Selecione uma categoria...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tarefa-prazo">Prazo</label>
+                            <input type="date" id="tarefa-prazo">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tarefa-status">Status</label>
+                            <select id="tarefa-status">
+                                <option value="pendente">Pendente</option>
+                                <option value="em_andamento">Em Andamento</option>
+                                <option value="concluida">Concluída</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" id="btn-salvar-tarefa" class="btn-primary btn-block">
+                            Cadastrar Tarefa
+                        </button>
+                        <button type="button" id="btn-cancelar-edicao" class="btn-secondary btn-block hidden">
+                            Cancelar Edição
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+        </aside>
+
+        <!-- COLUNA DIREITA: VISUALIZAÇÃO, FILTROS E CARDS -->
+        <section class="main-content">
+            
+            <!-- BARRA DE FILTROS E ORDENAÇÃO -->
+            <div class="toolbar card-panel">
+                <div class="filtros-grupo">
+                    <div class="select-wrapper">
+                        <i class="ph ph-funnel"></i>
+                        <select id="filtro-categoria">
+                            <option value="">Todas as Categorias</option>
+                        </select>
+                    </div>
+
+                    <div class="select-wrapper">
+                        <i class="ph ph-flag"></i>
+                        <select id="filtro-status">
+                            <option value="">Todos os Status</option>
+                            <option value="pendente">Pendente</option>
+                            <option value="em_andamento">Em Andamento</option>
+                            <option value="concluida">Concluída</option>
+                            <option value="vencida">Prazo Vencido</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="ordenacao-grupo">
+                    <div class="select-wrapper">
+                        <i class="ph ph-arrows-down-up"></i>
+                        <select id="ordenar-tarefas">
+                            <option value="recentes">Mais recentes</option>
+                            <option value="prazo">Prazo mais próximo</option>
+                            <option value="alfabetica">Ordem Alfabética (A-Z)</option>
+                            <option value="status">Por Status</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GRADE DE CARDS DE TAREFAS -->
+            <div id="lista-tarefas" class="cards-grid">
+                <!-- Os cards serão renderizados aqui via JS -->
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
